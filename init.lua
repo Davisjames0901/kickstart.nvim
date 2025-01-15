@@ -350,6 +350,36 @@ require('lazy').setup({
     'jiangmiao/auto-pairs',
   },
 
+  {
+    'cameron-wags/rainbow_csv.nvim',
+    config = true,
+    ft = {
+      'csv',
+      'tsv',
+      'csv_semicolon',
+      'csv_whitespace',
+      'csv_pipe',
+      'rfc_csv',
+      'rfc_semicolon',
+    },
+    cmd = {
+      'RainbowDelim',
+      'RainbowDelimSimple',
+      'RainbowDelimQuoted',
+      'RainbowMultiDelim',
+    },
+  },
+
+  {
+    'S1M0N38/love2d.nvim',
+    cmd = 'LoveRun',
+    opts = {},
+    keys = {
+      { '<leader>v', ft = 'lua', desc = 'LÖVE' },
+      { '<leader>vv', '<cmd>LoveRun<cr>', ft = 'lua', desc = 'Run LÖVE' },
+      { '<leader>vs', '<cmd>LoveStop<cr>', ft = 'lua', desc = 'Stop LÖVE' },
+    },
+  },
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
@@ -415,6 +445,9 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        defaults = {
+          layout_strategy = 'vertical',
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
