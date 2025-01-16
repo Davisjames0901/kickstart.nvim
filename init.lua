@@ -503,6 +503,14 @@ require('lazy').setup({
 
   -- LSP Plugins
   {
+    'MysticalDevil/inlay-hints.nvim',
+    event = 'LspAttach',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = function()
+      require('inlay-hints').setup()
+    end,
+  },
+  {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
@@ -692,13 +700,51 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
+        zls = {
+          settings = {
+            zls = {
+              enable_inlay_hints = true,
+              inlay_hints_show_builtin = true,
+              inlay_hints_exclude_single_argument = true,
+              inlay_hints_hide_redundant_param_names = false,
+              inlay_hints_hide_redundant_param_names_last_token = false,
+            },
+          },
+        },
+        omnisharp = {
+          settings = {
+            RoslynExtensionsOptions = {
+              documentAnalysisTimeoutMs = 30000,
+              enableDecompilationSupport = true,
+              enableImportCompletion = true,
+              enableAnalyzersSupport = true,
+              diagnosticWorkersThreadCount = 8,
+              inlayHintsOptions = {
+                enableForParameters = true,
+                forLiteralParameters = true,
+                forIndexerParameters = true,
+                forObjectCreationParameters = true,
+                forOtherParameters = true,
+                suppressForParametersThatDifferOnlyBySuffix = false,
+                suppressForParametersThatMatchMethodIntent = false,
+                suppressForParametersThatMatchArgumentName = false,
+                enableForTypes = true,
+                forImplicitVariableTypes = true,
+                forLambdaParameterTypes = true,
+                forImplicitObjectCreation = true,
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
           -- capabilities = {},
           settings = {
             Lua = {
+              hint = {
+                enable = true,
+              },
               completion = {
                 callSnippet = 'Replace',
               },
@@ -716,7 +762,6 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu.
       require('mason').setup()
-
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
