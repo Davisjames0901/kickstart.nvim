@@ -351,6 +351,17 @@ require('lazy').setup({
   },
 
   {
+    'd7omdev/nuget.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('nuget').setup()
+    end,
+  },
+
+  {
     'cameron-wags/rainbow_csv.nvim',
     config = true,
     ft = {
@@ -370,16 +381,6 @@ require('lazy').setup({
     },
   },
 
-  {
-    'S1M0N38/love2d.nvim',
-    cmd = 'LoveRun',
-    opts = {},
-    keys = {
-      { '<leader>v', ft = 'lua', desc = 'LÖVE' },
-      { '<leader>vv', '<cmd>LoveRun<cr>', ft = 'lua', desc = 'Run LÖVE' },
-      { '<leader>vs', '<cmd>LoveStop<cr>', ft = 'lua', desc = 'Stop LÖVE' },
-    },
-  },
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
@@ -713,25 +714,26 @@ require('lazy').setup({
         },
         omnisharp = {
           settings = {
-            RoslynExtensionsOptions = {
-              documentAnalysisTimeoutMs = 30000,
+            roslynExtensionsOptions = {
+              documentAnalysisTimeoutMs = 60000,
               enableDecompilationSupport = true,
               enableImportCompletion = true,
-              enableAnalyzersSupport = true,
+              enableAnalyzersSupport = false,
               diagnosticWorkersThreadCount = 8,
+              locationPaths = {},
               inlayHintsOptions = {
                 enableForParameters = true,
-                forLiteralParameters = true,
-                forIndexerParameters = true,
+                forLiteralParameters = false,
+                forIndexerParameters = false,
                 forObjectCreationParameters = true,
                 forOtherParameters = true,
-                suppressForParametersThatDifferOnlyBySuffix = false,
+                suppressForParametersThatDifferOnlyBySuffix = true,
                 suppressForParametersThatMatchMethodIntent = false,
-                suppressForParametersThatMatchArgumentName = false,
-                enableForTypes = true,
+                suppressForParametersThatMatchArgumentName = true,
+                enableForTypes = false,
                 forImplicitVariableTypes = true,
                 forLambdaParameterTypes = true,
-                forImplicitObjectCreation = true,
+                forImplicitObjectCreation = false,
               },
             },
           },
@@ -742,9 +744,6 @@ require('lazy').setup({
           -- capabilities = {},
           settings = {
             Lua = {
-              hint = {
-                enable = true,
-              },
               completion = {
                 callSnippet = 'Replace',
               },
