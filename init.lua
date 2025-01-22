@@ -349,6 +349,33 @@ require('lazy').setup({
   {
     'jiangmiao/auto-pairs',
   },
+  {
+    'seblj/roslyn.nvim',
+    ft = 'cs',
+    opts = {
+      config = {
+        settings = {
+          ['csharp|inlay_hints'] = {
+            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+            csharp_enable_inlay_hints_for_types = true,
+            dotnet_enable_inlay_hints_for_indexer_parameters = true,
+            dotnet_enable_inlay_hints_for_literal_parameters = true,
+            dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+            dotnet_enable_inlay_hints_for_other_parameters = true,
+            dotnet_enable_inlay_hints_for_parameters = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+          },
+          ['csharp|code_lens'] = {
+            dotnet_enable_references_code_lens = true,
+          },
+        },
+      },
+    },
+  },
 
   {
     'd7omdev/nuget.nvim',
@@ -530,7 +557,10 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
+      { 'williamboman/mason.nvim', opts = { registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry',
+      } } },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -712,32 +742,32 @@ require('lazy').setup({
             },
           },
         },
-        omnisharp = {
-          settings = {
-            roslynExtensionsOptions = {
-              documentAnalysisTimeoutMs = 60000,
-              enableDecompilationSupport = true,
-              enableImportCompletion = true,
-              enableAnalyzersSupport = false,
-              diagnosticWorkersThreadCount = 8,
-              locationPaths = {},
-              inlayHintsOptions = {
-                enableForParameters = true,
-                forLiteralParameters = false,
-                forIndexerParameters = false,
-                forObjectCreationParameters = true,
-                forOtherParameters = true,
-                suppressForParametersThatDifferOnlyBySuffix = true,
-                suppressForParametersThatMatchMethodIntent = false,
-                suppressForParametersThatMatchArgumentName = true,
-                enableForTypes = false,
-                forImplicitVariableTypes = true,
-                forLambdaParameterTypes = true,
-                forImplicitObjectCreation = false,
-              },
-            },
-          },
-        },
+        --omnisharp = {
+        --  settings = {
+        --    roslynExtensionsOptions = {
+        --      documentAnalysisTimeoutMs = 60000,
+        --      enableDecompilationSupport = true,
+        --      enableImportCompletion = true,
+        --      enableAnalyzersSupport = false,
+        --      diagnosticWorkersThreadCount = 8,
+        --      locationPaths = {},
+        --      inlayHintsOptions = {
+        --        enableForParameters = true,
+        --        forLiteralParameters = false,
+        --        forIndexerParameters = false,
+        --        forObjectCreationParameters = true,
+        --        forOtherParameters = true,
+        --        suppressForParametersThatDifferOnlyBySuffix = true,
+        --        suppressForParametersThatMatchMethodIntent = false,
+        --        suppressForParametersThatMatchArgumentName = true,
+        --        enableForTypes = false,
+        --        forImplicitVariableTypes = true,
+        --        forLambdaParameterTypes = true,
+        --        forImplicitObjectCreation = false,
+        --      },
+        --    },
+        --  },
+        --},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
